@@ -1,14 +1,18 @@
 const path = require("path");
 const express = require("express");
-const fetch = require("node-fetch");
+const app = express();
+const PORT = 3000;
+const bodyParser = require("body-parser");
 require("dotenv").config();
 
 //Import Routes
 const moviesRoute = require("./routes/movies");
-const app = express();
-const PORT = 3000;
-app.use(express.json());
+const searchRoute = require("./routes/search");
 
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use("/search", searchRoute);
 app.use("/movies", moviesRoute);
 
 //local error handler
