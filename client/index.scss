@@ -1,3 +1,67 @@
-.app {
-  font-size: 2rem;
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+}
+main {
+  padding: 10px;
+}
+
+.nav {
+  height: 100vh;
+  width: 250px;
+  transition: width 0.3s ease-in-out;
+  background-color: #000;
+  color: white;
+  padding-top: 2rem;
+}
+
+.navClosed {
+  composes: nav;
+  transition: width 0.3s ease-in-out;
+  height: 100vh;
+  width: 60px;
+  padding-top: 2rem;
+  background-color: #000;
+}
+.nav-list {
+  height: auto;
+  width: 100%;
+}
+
+.nav-list .nav-item {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #fff;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.linkText {
+  padding-left: 16px;
+}
+.linkTextClosed {
+  composes: linkText;
+  display: none;
+}
+
+.menuBtn {
+  align-self: center;
+  align-self: flex-start;
+  justify-self: flex-end;
+  color: #b2bac2;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding-left: 20px;
 }
