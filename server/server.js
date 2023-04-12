@@ -3,15 +3,23 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 const bodyParser = require("body-parser");
-require("dotenv").config();
+const cors = require("cors");
 
+require("dotenv").config();
+app.use(
+  cors({
+    origin: "http://localhost:8080",
+  })
+);
 //Import Routes
+const homeRoute = require("./routes/home");
 const moviesRoute = require("./routes/movies");
 const searchRoute = require("./routes/search");
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use("/", homeRoute);
 app.use("/search", searchRoute);
 app.use("/movies", moviesRoute);
 

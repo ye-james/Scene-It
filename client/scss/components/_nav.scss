@@ -1,0 +1,60 @@
+.nav {
+  height: 100vh;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $text-primary;
+}
+
+.nav__logo-container {
+  padding: 3rem 0;
+}
+
+.navOpen {
+  transition: width 0.3s ease-in-out;
+  background-color: $nav-background-primary;
+
+  height: 100vh;
+}
+
+.navClosed {
+  background-color: $nav-background-primary;
+  composes: nav;
+  transition: width 0.3s ease-in-out;
+  height: 100vh;
+  width: 80px;
+}
+.nav-list {
+  width: 100%;
+}
+
+.nav-list .nav-item {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+.linkText {
+  padding-inline-start: 1rem;
+  justify-self: flex-start;
+}
+.linkTextClosed {
+  composes: linkText;
+  display: none;
+}
+
+.menuBtn {
+  margin: 0 auto;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding-bottom: 20px;
+}
