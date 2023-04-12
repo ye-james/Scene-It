@@ -1,5 +1,7 @@
 .card {
   max-width: 325px;
+  max-height: 600px;
+  background: $nav-background-primary;
   border: 1px solid $text-primary;
   transition: transform 0.5s ease;
   border-radius: $card-border-radius;
@@ -8,10 +10,17 @@
 //   transform: scale(1.02);
 // }
 
+.card-container {
+  height: 100%;
+}
+
 .card-details {
+  width: 100%;
+  height: 100%;
   padding: 1rem;
   display: flex;
   flex-direction: column;
+
   gap: 7px;
 }
 
@@ -58,6 +67,10 @@
   font-size: 0.9rem;
   font-style: italic;
   color: $text-primary-dark;
+}
+
+.card-action-group {
+  // margin-top: auto;
 }
 
 .card-btn:hover {

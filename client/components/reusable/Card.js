@@ -4,7 +4,7 @@ const Card = ({ title, imgPath, summary }) => {
   console.log(title);
   return (
     <div className="card">
-      <div className="movie">
+      <div className="card-container">
         <div className="img-container">
           <img
             className="card-img"
@@ -27,7 +27,7 @@ const Card = ({ title, imgPath, summary }) => {
             <span>Actor A</span>
             <span>Actor B</span>
           </div>
-          <div className="card-btn-group">
+          <div className="card-action-group">
             <button className="card-btn">Learn More</button>
           </div>
         </div>
