@@ -42,20 +42,24 @@
 
 .home__popular {
   overflow-x: hidden;
+  position: relative;
 }
 
 .popular-container {
+  position: relative;
+}
+
+.scroll-container {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 325px;
   overflow-y: hidden;
   overflow-x: scroll;
   gap: 2rem;
-
   overscroll-behavior-inline: contain;
 }
 
-.popular-container::-webkit-scrollbar {
+.scroll-container::-webkit-scrollbar {
   display: none;
 }
 
@@ -65,4 +69,33 @@
 
 .snaps-inline > * {
   scroll-snap-align: start;
+}
+.scroll-prev {
+  position: absolute;
+  background: $text-primary;
+  color: $background-primary;
+  height: 100%;
+  width: 60px;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.scroll-prev:hover {
+  opacity: 70%;
+}
+
+.scroll-next {
+  position: absolute;
+  background: $text-primary;
+  color: $background-primary;
+  width: 60px;
+  height: 100%;
+  top: 0;
+  right: 0;
+  opacity: 0;
+}
+
+.scroll-next:hover {
+  opacity: 70%;
 }

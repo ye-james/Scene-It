@@ -1,7 +1,6 @@
 import React from "react";
 
 const Card = ({ title, imgPath, summary }) => {
-  console.log(title);
   return (
     <div className="card">
       <div className="card-container">
