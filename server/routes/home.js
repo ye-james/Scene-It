@@ -7,11 +7,14 @@ router.get(
   "/",
   moviesController.getPopularMovies,
   tvController.getPopularTVShows,
+  tvController.checkIfFavorite,
   (req, res) => {
     res
       .status(200)
       .json({ movies: res.locals.popMovies, tvShows: res.locals.popTvShows });
   }
 );
+
+router.patch("/", tvController.setFavorite);
 
 module.exports = router;

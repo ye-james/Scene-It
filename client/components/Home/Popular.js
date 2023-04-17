@@ -10,18 +10,16 @@ const Popular = () => {
   const [scrolEnd, setscrolEnd] = useState(false);
 
   useEffect(() => {
-    if (!tvShows.length > 0) {
-      fetch("http://localhost:3000/", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setTVShows(data.tvShows);
-        });
-    }
-  }, [tvShows]);
+    fetch("http://localhost:3000/", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setTVShows(data.tvShows);
+      });
+  }, []);
 
   const slide = (shift) => {
     scrl.current.scrollLeft += shift;
@@ -49,7 +47,31 @@ const Popular = () => {
     }
   };
 
-  console.log(tvShows);
+  const setFavorite = (id) => {
+    const data = {
+      id,
+    };
+
+    fetch("http://localhost:3000/", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const showIndex = tvShows.findIndex((show) => show.id === data.id);
+        const updatedShow = {
+          ...tvShows[showIndex],
+          favorite: data.setFavorite,
+        };
+        const newTvShowsList = [...tvShows];
+        newTvShowsList[showIndex] = updatedShow;
+        setTVShows(newTvShowsList);
+      });
+  };
+
   return (
     <div className="home__popular">
       <h1>Popular TV Shows</h1>
@@ -73,13 +95,18 @@ const Popular = () => {
                   imgPath={show.backdrop_path}
                   title={show.name}
                   summary={show.overview}
+                  media_type={show.media_type}
+                  setFavorite={setFavorite}
+                  favorite={show.favorite}
                 />
               );
             })}
         </div>
-        <button className="scroll-next" onClick={() => slide(+250)}>
-          <AiOutlineCaretRight />
-        </button>
+        {!scrolEnd && (
+          <button className="scroll-next" onClick={() => slide(+250)}>
+            <AiOutlineCaretRight />
+          </button>
+        )}
       </div>
     </div>
   );

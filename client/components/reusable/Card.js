@@ -1,14 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
-const Card = ({ title, imgPath, summary }) => {
+const Card = ({ id, title, imgPath, summary, favorite, setFavorite }) => {
+  const [cardHovered, setCardHovered] = useState(false);
+
   return (
-    <div className="card">
+    <div
+      className="card"
+      onMouseEnter={() => setCardHovered(true)}
+      onMouseLeave={() => setCardHovered(false)}
+    >
       <div className="card-container">
         <div className="img-container">
           <img
             className="card-img"
             src={`https://image.tmdb.org/t/p/w500/${imgPath}`}
           />
+          {cardHovered &&
+            (favorite ? (
+              <AiFillStar
+                className="favorites-icon"
+                size={40}
+                onClick={() => setFavorite(id)}
+              />
+            ) : (
+              <AiOutlineStar
+                className="favorites-icon"
+                size={40}
+                onClick={() => setFavorite(id)}
+              />
+            ))}
         </div>
         <div className="card-details">
           <div className="card-details-wrapper">

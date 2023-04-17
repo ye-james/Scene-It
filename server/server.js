@@ -6,17 +6,13 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 require("dotenv").config();
-app.use(
-  cors({
-    origin: "http://localhost:8080",
-  })
-);
+app.use(cors());
 //Import Routes
 const homeRoute = require("./routes/home");
 const moviesRoute = require("./routes/movies");
 const searchRoute = require("./routes/search");
 
-app.use(express.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", homeRoute);
