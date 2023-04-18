@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
-const Hero = () => {
+const HeroContainer = () => {
   const [popularMovies, setPopularMovies] = useState([]);
 
   useEffect(() => {
@@ -42,4 +42,4 @@ const Hero = () => {
     </Carousel>
   );
 };
-export default Hero;
+export default HeroContainer;

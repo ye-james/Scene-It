@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Nav from "../components/Nav/Nav";
 import Search from "../components/Search";
 import Home from "../components/Home/Home";
+import MyListContainer from "../components/MyListContainer";
 
 const App = () => {
   return (
@@ -12,7 +13,7 @@ const App = () => {
         <Search />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/my-list" element={<h1>My List</h1>} />
+          <Route path="/my-list" element={<MyListContainer />} />
           <Route path="/explore" element={<h1>Explore</h1>} />
         </Routes>
       </main>

@@ -67,7 +67,7 @@ tvController.setFavorite = async (req, res, next) => {
       media_type: "tv",
     });
     if (createdNewFavorite) {
-      console.log(createdNewFavorite);
+      // console.log(createdNewFavorite);
       if (createdNewFavorite)
         res.status(200).json({
           success: "success",

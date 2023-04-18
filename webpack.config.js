@@ -6,7 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
   },
-  mode: "development",
+  mode: process.env.NODE_ENV,
   module: {
     rules: [
       {
@@ -23,11 +23,7 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.scss$/,
+        test: /\.s?css$/,
         use: ["style-loader", "css-loader", "sass-loader"],
       },
     ],
@@ -42,5 +38,6 @@ module.exports = {
   },
   devServer: {
     hot: true,
+    historyApiFallback: true,
   },
 };

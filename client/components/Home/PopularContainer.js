@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Card from "../reusable/Card";
 import { AiOutlineCaretLeft, AiOutlineCaretRight } from "react-icons/ai";
 
-const Popular = () => {
+const PopularContainer = () => {
   const [tvShows, setTVShows] = useState([]);
 
   let scrl = useRef(null);
@@ -112,4 +112,4 @@ const Popular = () => {
   );
 };
 
-export default Popular;
+export default PopularContainer;

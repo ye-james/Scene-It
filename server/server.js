@@ -11,13 +11,15 @@ app.use(cors());
 const homeRoute = require("./routes/home");
 const moviesRoute = require("./routes/movies");
 const searchRoute = require("./routes/search");
+const listRoute = require("./routes/list");
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/", homeRoute);
 app.use("/search", searchRoute);
 app.use("/movies", moviesRoute);
+app.use("/list", listRoute);
 
 //local error handler
 app.use((req, res) => res.sendStatus(404));
