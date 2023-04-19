@@ -1,7 +1,34 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 
-const StateContext = createContext();
+const StateContext = createContext(null);
 
 const StateProvider = ({ children }) => {
-  return <StateContext.Provider value={{}}>{children}</StateContext.Provider>;
+  const [list, setList] = useState([]);
+  const [popTVShows, setPopTVShows] = useState([]);
+  const [popMovies, setPopMovies] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/list")
+      .then((response) => response.json())
+      .then((data) => {
+        setList(data);
+      });
+  }, []);
+
+  return (
+    <StateContext.Provider
+      value={{
+        list,
+        setList,
+        popTVShows,
+        setPopTVShows,
+        popMovies,
+        setPopMovies,
+      }}
+    >
+      {children}
+    </StateContext.Provider>
+  );
 };
+
+export { StateProvider, StateContext };

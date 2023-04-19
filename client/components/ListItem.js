@@ -33,7 +33,9 @@ const ListItem = ({
       </div>
       <div className="wrapper">
         {/* <p>Date added: 4/17/2023</p> */}
-        <button onClick={() => setFavorite(id)}>Remove</button>
+        <button onClick={() => setFavorite(id, title, media_type)}>
+          Remove
+        </button>
       </div>
     </div>
   );

@@ -10,7 +10,6 @@ const Modal = () => {
   const [show, setShow] = useState(null);
 
   useEffect(() => {
-    // setSearchParams({ media: media_type });
     fetch(`http://localhost:3000/search/${id}?media=${media_type}`)
       .then((response) => response.json())
       .then((data) => {
@@ -18,6 +17,49 @@ const Modal = () => {
         setShow(data);
       });
   }, []);
+
+  const setFavorite = (id, title, media_type) => {
+    const data = {
+      id,
+      title,
+      media_type,
+    };
+
+    fetch("http://localhost:3000/list/favorite", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const showIndex = show.findIndex((show) => show.id === data.id);
+        const updatedShow = {
+          ...show[showIndex],
+          favorite: data.setFavorite,
+        };
+        const newShowList = [...show];
+        newShowList[showIndex] = updatedShow;
+        setTVShows(newShowList);
+      });
+  };
+
+  const addToWatchList = (id) => {
+    const data = { id };
+
+    fetch("http://localhost:3000/list/add", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
 
   return (
     <div className="modal">
@@ -57,7 +99,10 @@ const Modal = () => {
                   <p>{show.overview}</p>
                 </div>
                 <div className="modal-btns">
-                  <button disabled={favorite}>
+                  <button
+                    disabled={favorite}
+                    onClick={() => setFavorite(id, show.title, media_type)}
+                  >
                     {favorite ? (
                       <span className="modal-btn">
                         <AiOutlineCheckCircle size={20} /> Favorite
@@ -66,7 +111,17 @@ const Modal = () => {
                       "Add To Favorite"
                     )}
                   </button>
-                  <button className="btn-secondary">Add to Watchlist</button>
+                  <button
+                    className="btn-secondary"
+                    onClick={() => addToWatchList(id)}
+                  >
+                    {
+                      <span className="modal-btn">
+                        {/* <AiOutlineCheckCircle size={20} />  */}
+                        Add To Watchlist
+                      </span>
+                    }
+                  </button>
                 </div>
               </div>
             </React.Fragment>

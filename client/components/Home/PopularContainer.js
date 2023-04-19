@@ -1,24 +1,27 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Card from "../reusable/Card";
+import { StateContext } from "../../context/StateContext";
 import { AiOutlineCaretLeft, AiOutlineCaretRight } from "react-icons/ai";
 
 const PopularContainer = () => {
-  const [tvShows, setTVShows] = useState([]);
-
+  const { popTVShows, setPopTVShows, list, setList } = useContext(StateContext);
   let scrl = useRef(null);
   const [scrollX, setscrollX] = useState(0);
   const [scrolEnd, setscrolEnd] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3000/", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setTVShows(data.tvShows);
-      });
+    if (popTVShows.length === 0) {
+      fetch("http://localhost:3000/", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // setTVShows(data.tvShows);
+          setPopTVShows(data.tvShows);
+        });
+    }
   }, []);
 
   const slide = (shift) => {
@@ -47,12 +50,14 @@ const PopularContainer = () => {
     }
   };
 
-  const setFavorite = (id) => {
+  const setFavorite = (id, title, media_type) => {
     const data = {
       id,
+      title,
+      media_type,
     };
 
-    fetch("http://localhost:3000/list", {
+    fetch("http://localhost:3000/list/favorite", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -61,14 +66,25 @@ const PopularContainer = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        const showIndex = tvShows.findIndex((show) => show.id === data.id);
+        const showIndex = popTVShows.findIndex((show) => show.id === data.id);
         const updatedShow = {
-          ...tvShows[showIndex],
+          ...popTVShows[showIndex],
           favorite: data.setFavorite,
         };
-        const newTvShowsList = [...tvShows];
+        const newTvShowsList = [...popTVShows];
         newTvShowsList[showIndex] = updatedShow;
-        setTVShows(newTvShowsList);
+        setPopTVShows(newTvShowsList);
+
+        //
+        console.log(data);
+        const listIndex = list.findIndex((show) => show.id === data.id);
+        const updatedListShow = {
+          ...list[listIndex],
+          favorite: data.setFavorite,
+        };
+        const newList = [...list];
+        newList[listIndex] = updatedListShow;
+        setList(newList);
       });
   };
 
@@ -86,8 +102,8 @@ const PopularContainer = () => {
           ref={scrl}
           onScroll={scrollCheck}
         >
-          {tvShows.length > 0 &&
-            tvShows.map((show, key) => {
+          {popTVShows.length > 0 &&
+            popTVShows.map((show, key) => {
               return (
                 <Card
                   key={key}

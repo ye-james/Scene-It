@@ -20,8 +20,7 @@ searchController.search = async (req, res, next) => {
 
 searchController.findList = (req, res, next) => {
   const promises = [];
-  //for (const show of res.locals.favoritesList) {
-  res.locals.favoritesList.forEach((show) => {
+  res.locals.allShows.forEach((show) => {
     promises.push(
       fetch(
         `https://api.themoviedb.org/3/tv/${show.id}?api_key=${process.env.API_KEY}`
@@ -32,9 +31,9 @@ searchController.findList = (req, res, next) => {
   Promise.all(promises)
     .then((responses) => Promise.all(responses.map((r) => r.json())))
     .then((shows) => {
-      const newList = [...res.locals.favoritesList];
+      const newList = [...res.locals.allShows];
       shows.forEach((show) => {
-        const index = res.locals.favoritesList.findIndex(
+        const index = res.locals.allShows.findIndex(
           (currShow) => currShow.id === show.id
         );
         const { id, favorite, watched, to_watch, media_type } = newList[index];
@@ -50,8 +49,8 @@ searchController.findList = (req, res, next) => {
 
         newList[index] = updatedShow;
       });
-      res.locals.favoritesList = newList;
-      res.status(200).json(res.locals.favoritesList);
+      res.locals.allShows = newList;
+      res.status(200).json(res.locals.allShows);
     });
 };
 

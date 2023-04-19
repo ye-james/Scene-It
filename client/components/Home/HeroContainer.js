@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { Link, useLocation } from "react-router-dom";
+import { StateContext } from "../../context/StateContext";
+
 const HeroContainer = () => {
-  const [popularMovies, setPopularMovies] = useState([]);
+  const { popMovies, setPopMovies } = useContext(StateContext);
   const location = useLocation();
 
   useEffect(() => {
-    if (!popularMovies.length > 0) {
+    if (popMovies.length === 0) {
       fetch("http://localhost:3000", {
         headers: {
           "Content-Type": "application/json",
@@ -15,11 +17,12 @@ const HeroContainer = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          setPopularMovies(data.movies);
+          popMovies;
+          setPopMovies(data.movies);
         });
     }
-  });
-  console.log(popularMovies);
+  }, []);
+
   return (
     <Carousel
       className="hero"
@@ -30,8 +33,8 @@ const HeroContainer = () => {
       showThumbs={false}
       interval={5000}
     >
-      {popularMovies.length > 0 &&
-        popularMovies.map((movie, key) => {
+      {popMovies.length > 0 &&
+        popMovies.map((movie, key) => {
           return (
             <div className="hero__item" key={key}>
               <img

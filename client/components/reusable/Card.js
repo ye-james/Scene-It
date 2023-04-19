@@ -30,13 +30,13 @@ const Card = ({
               <AiFillStar
                 className="favorites-icon"
                 size={40}
-                onClick={() => setFavorite(id)}
+                onClick={() => setFavorite(id, title, media_type)}
               />
             ) : (
               <AiOutlineStar
                 className="favorites-icon"
                 size={40}
-                onClick={() => setFavorite(id)}
+                onClick={() => setFavorite(id, title, media_type)}
               />
             ))}
         </div>
@@ -49,10 +49,10 @@ const Card = ({
               <li>Action, Superhero</li>
             </ul>
 
-            <div className="card-details-summary">
+            {/* <div className="card-details-summary">
               <h5 className="card-summary">Summary</h5>
             </div>
-            <div className="card-summary-text">{summary}</div>
+            <div className="card-summary-text">{summary}</div> */}
             <div className="card-actors">
               <span>Actor A</span>
               <span>Actor B</span>
@@ -62,7 +62,12 @@ const Card = ({
           <div className="card-action-group">
             <Link
               to={`${id}`}
-              state={{ background: location, id: id, media_type: media_type }}
+              state={{
+                background: location,
+                id: id,
+                favorite: favorite,
+                media_type: media_type,
+              }}
               className="list-link"
             >
               <button className="card-btn">Learn More</button>
