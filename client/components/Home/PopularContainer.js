@@ -52,7 +52,7 @@ const PopularContainer = () => {
       id,
     };
 
-    fetch("http://localhost:3000/", {
+    fetch("http://localhost:3000/list", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

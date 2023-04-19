@@ -20,14 +20,6 @@ moviesController.getPopularMovies = async (req, res, next) => {
 };
 
 moviesController.favoriteMovie = (req, res, next) => {
-  console.log("function called");
-  // const testMedia = {
-  //   id: 123,
-  //   favorite: true,
-  //   watched: true,
-  //   to_watch: false,
-  //   media_type: "movie",
-  // };
 
   const newMedia = new Media(testMedia);
   newMedia

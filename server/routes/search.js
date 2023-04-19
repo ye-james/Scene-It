@@ -4,5 +4,6 @@ const router = express.Router();
 const searchController = require("../controllers/searchController");
 
 router.post("/", searchController.search);
+router.get("/:id", searchController.getMediaInfo);
 
 module.exports = router;

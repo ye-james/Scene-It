@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const moviesController = require("../controllers/moviesController");
 const tvController = require("../controllers/tvController");
+const listController = require("../controllers/listController");
 
 router.get(
   "/",
@@ -15,6 +16,5 @@ router.get(
   }
 );
 
-router.patch("/", tvController.setFavorite);
 
 module.exports = router;

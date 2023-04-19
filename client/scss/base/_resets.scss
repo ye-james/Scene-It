@@ -24,6 +24,11 @@ h1 {
   color: $text-primary;
 }
 
+h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
 h3 {
   font-size: 1.5rem;
   font-weight: 400;
@@ -38,4 +43,24 @@ button {
   padding: 0.5rem 0.75rem;
   border-radius: $card-border-radius;
   cursor: pointer;
+}
+
+button:disabled,
+button[disabled] {
+  cursor: default;
+}
+
+.btn-secondary {
+  border: 1px solid $text-primary;
+  background: $text-primary;
+  color: $background-primary;
+  padding: 0.5rem 0.75rem;
+  border-radius: $card-border-radius;
+  cursor: pointer;
+}
+
+hr {
+  height: 2px;
+  background-color: $text-primary-light;
+  border: none;
 }

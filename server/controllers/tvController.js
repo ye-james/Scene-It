@@ -43,39 +43,6 @@ tvController.checkIfFavorite = async (req, res, next) => {
   return next();
 };
 
-tvController.setFavorite = async (req, res, next) => {
-  const { id } = req.body;
-  const result = await Media.findOne({ id });
-  if (result) {
-    Media.findOneAndUpdate(
-      { id },
-      [{ $set: { favorite: { $not: "$favorite" } } }],
-      { new: true }
-    ).then((set) => {
-      console.log(set);
-      if (set)
-        res
-          .status(200)
-          .json({ success: "success", setFavorite: set.favorite, id: set.id });
-    });
-  } else {
-    const createdNewFavorite = await Media.create({
-      id,
-      favorite: true,
-      watched: false,
-      to_watch: false,
-      media_type: "tv",
-    });
-    if (createdNewFavorite) {
-      // console.log(createdNewFavorite);
-      if (createdNewFavorite)
-        res.status(200).json({
-          success: "success",
-          setFavorite: createdNewFavorite.favorite,
-          id: createdNewFavorite.id,
-        });
-    }
-  }
-};
+
 
 module.exports = tvController;

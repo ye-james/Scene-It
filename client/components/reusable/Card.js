@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
+import { Link, useLocation } from "react-router-dom";
 
-const Card = ({ id, title, imgPath, summary, favorite, setFavorite }) => {
+const Card = ({
+  id,
+  title,
+  imgPath,
+  summary,
+  favorite,
+  setFavorite,
+  media_type,
+}) => {
   const [cardHovered, setCardHovered] = useState(false);
-
+  const location = useLocation();
   return (
     <div
       className="card"
@@ -51,7 +60,13 @@ const Card = ({ id, title, imgPath, summary, favorite, setFavorite }) => {
           </div>
 
           <div className="card-action-group">
-            <button className="card-btn">Learn More</button>
+            <Link
+              to={`${id}`}
+              state={{ background: location, id: id, media_type: media_type }}
+              className="list-link"
+            >
+              <button className="card-btn">Learn More</button>
+            </Link>
           </div>
         </div>
       </div>
