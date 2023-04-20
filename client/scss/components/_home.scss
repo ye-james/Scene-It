@@ -1,4 +1,5 @@
 .home-container {
+  margin-top: 3rem;
   width: 100%;
   display: grid;
   grid-template-rows: auto;
@@ -100,4 +101,14 @@
 
 .scroll-next:hover {
   opacity: 70%;
+}
+
+.spinner {
+  width: 100%;
+  grid-area: heading;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }

@@ -1,5 +1,7 @@
+.nav-container {
+}
+
 .nav {
-  height: 100vh;
   width: 250px;
   display: flex;
   flex-direction: column;
@@ -15,14 +17,14 @@
   transition: width 0.3s ease-in-out;
   background-color: $nav-background-primary;
 
-  height: 100vh;
+  height: 100%;
 }
 
 .navClosed {
   background-color: $nav-background-primary;
   composes: nav;
   transition: width 0.3s ease-in-out;
-  height: 100vh;
+  height: 100%;
   width: 80px;
 }
 .nav-list {

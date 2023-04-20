@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { StateContext } from "../../context/StateContext";
+import NoImg from "../../imgs/No_Image.jpg";
 
 const Modal = () => {
   const location = useLocation();
@@ -78,40 +79,101 @@ const Modal = () => {
             <React.Fragment>
               <div className="modal-img-container">
                 <img
-                  src={`https://image.tmdb.org/t/p/original/${show.backdrop_path}`}
+                  src={
+                    show.backdrop_path
+                      ? `https://image.tmdb.org/t/p/original/${show.backdrop_path}`
+                      : NoImg
+                  }
                 />
               </div>
               <div className="modal-body">
                 <h1>{media_type === "tv" ? show.name : show.title}</h1>
                 <hr />
-                <div className="description">
+                <div className="modal-description">
+                  {/* details for movies */}
+                  {media_type === "movie" && (
+                    <div className="modal-card-details">
+                      <div className="modal-card-info">
+                        <p>
+                          <span>
+                            <strong>Release date: </strong>
+                          </span>
+                          <span>{show.release_date}</span>
+                        </p>
+                        <p>
+                          <span>
+                            <strong>Runtime: </strong>
+                          </span>
+                          <span>{show.runtime} min</span>
+                        </p>
+                      </div>
+                      <div>
+                        <p>
+                          <span>
+                            <strong>Rating :</strong>{" "}
+                          </span>
+                          <strong>{Math.round(show.vote_average * 10)}</strong>
+                          <span>/100</span>
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* details for TV shows */}
                   {media_type === "tv" && (
-                    <React.Fragment>
-                      <p>
-                        <span>
-                          <strong># of seasons: </strong>
-                        </span>
-                        <span>{show.number_of_seasons}</span>
-                      </p>
-                      <p>
-                        <span>
-                          <strong># of episodes: </strong>
-                        </span>
-                        <span>{show.number_of_episodes}</span>
-                      </p>
-                    </React.Fragment>
+                    <div className="modal-card-details">
+                      <div className="modal-card-info">
+                        <p>
+                          <span>
+                            <strong># of seasons: </strong>
+                          </span>
+                          <span>{show.number_of_seasons}</span>
+                        </p>
+                        <p>
+                          <span>
+                            <strong># of episodes: </strong>
+                          </span>
+                          <span>{show.number_of_episodes}</span>
+                        </p>
+                        <p>
+                          <span>
+                            <strong>Released: </strong>
+                          </span>
+                          <span>{show.first_air_date}</span>
+                        </p>
+                      </div>
+                      <div>
+                        <p>
+                          <span>
+                            <strong>Rating :</strong>{" "}
+                          </span>
+                          <strong>{Math.round(show.vote_average * 10)}</strong>
+                          <span>/100</span>
+                        </p>
+                      </div>
+                    </div>
                   )}
 
                   <p>{show.overview}</p>
+
+                  <div className="modal-tv-genre">
+                    {show.genres.map((genre, key) => (
+                      <span className="modal-genre" key={key}>
+                        {genre.name}
+                        <span>|</span>
+                      </span>
+                    ))}
+                  </div>
                 </div>
+                {/* <hr /> */}
                 <div className="modal-btns">
                   <button
                     disabled={favorite}
                     onClick={() => setFavorite(id, title, media_type)}
                   >
-                    {show.favorite ? (
+                    {favorite ? (
                       <span className="modal-btn">
-                        <AiOutlineCheckCircle size={20} /> Favorite
+                        <AiOutlineCheckCircle size={20} /> Favorited
                       </span>
                     ) : (
                       "Add To Favorite"

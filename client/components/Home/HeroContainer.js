@@ -24,37 +24,40 @@ const HeroContainer = () => {
   }, []);
 
   return (
-    <Carousel
-      className="hero"
-      centerMode
-      centerSlidePercentage={60}
-      infiniteLoop
-      autoPlay
-      showThumbs={false}
-      interval={5000}
-    >
-      {popMovies.length > 0 &&
-        popMovies.map((movie, key) => {
-          return (
-            <div className="hero__item" key={key}>
-              <img
-                src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-              />
-              <Link
-                to={`${movie.id}`}
-                state={{
-                  background: location,
-                  id: movie.id,
-                  title: movie.title,
-                  media_type: movie.media_type,
-                }}
-              >
-                <p className="legend">{movie.title}</p>
-              </Link>
-            </div>
-          );
-        })}
-    </Carousel>
+    <div>
+      <h1 className="home__heading heading-primary">Trending Movies</h1>
+      <Carousel
+        className="hero"
+        centerMode
+        centerSlidePercentage={60}
+        infiniteLoop
+        autoPlay
+        showThumbs={false}
+        interval={5000}
+      >
+        {popMovies.length > 0 &&
+          popMovies.map((movie, key) => {
+            return (
+              <div className="hero__item" key={key}>
+                <img
+                  src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+                />
+                <Link
+                  to={`${movie.id}`}
+                  state={{
+                    background: location,
+                    id: movie.id,
+                    title: movie.title,
+                    media_type: movie.media_type,
+                  }}
+                >
+                  <p className="legend">{movie.title}</p>
+                </Link>
+              </div>
+            );
+          })}
+      </Carousel>
+    </div>
   );
 };
 export default HeroContainer;

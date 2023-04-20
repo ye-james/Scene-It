@@ -10,19 +10,41 @@ const PopularContainer = () => {
   const [scrolEnd, setscrolEnd] = useState(false);
 
   useEffect(() => {
-    if (popTVShows.length === 0) {
-      fetch("http://localhost:3000/", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // setTVShows(data.tvShows);
-          setPopTVShows(data.tvShows);
-        });
-    }
+    // fetch("http://localhost:3000/list")
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setList(data);
+    //   });
+    // setFetching(true);
+    const getList = fetch("http://localhost:3000/list");
+    const getMovies = fetch("http://localhost:3000");
+    const getTVShows = fetch("http://localhost:3000/");
+
+    Promise.all([getList, getMovies, getTVShows])
+      .then((results) => Promise.all(results.map((r) => r.json())))
+      .then((values) => {
+        console.log(values);
+        // setList(values[0]);
+        // setPopMovies(values[1]);
+        // setPopTVShows(values[2]);
+        //setFetching(false);
+      });
   }, []);
+
+  // useEffect(() => {
+  //   if (popTVShows.length === 0) {
+  //     fetch("http://localhost:3000/", {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         // setTVShows(data.tvShows);
+  //         setPopTVShows(data.tvShows);
+  //       });
+  //   }
+  // }, []);
 
   const slide = (shift) => {
     scrl.current.scrollLeft += shift;

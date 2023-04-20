@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
+import NoImg from "../../imgs/No_Image.jpg";
 
 const Card = ({
   id,
@@ -13,6 +14,7 @@ const Card = ({
 }) => {
   const [cardHovered, setCardHovered] = useState(false);
   const location = useLocation();
+
   return (
     <div
       className="card"
@@ -23,7 +25,7 @@ const Card = ({
         <div className="img-container">
           <img
             className="card-img"
-            src={`https://image.tmdb.org/t/p/w500/${imgPath}`}
+            src={imgPath ? `https://image.tmdb.org/t/p/w500/${imgPath}` : NoImg}
           />
           {cardHovered &&
             (favorite ? (
@@ -43,20 +45,20 @@ const Card = ({
         <div className="card-details">
           <div className="card-details-wrapper">
             <h3>{title}</h3>
-            <ul className="card-sub-details">
+            {/* <ul className="card-sub-details">
               <li>PG-13 / </li>
               <li>2 49min / </li>
               <li>Action, Superhero</li>
             </ul>
 
-            {/* <div className="card-details-summary">
+            <div className="card-details-summary">
               <h5 className="card-summary">Summary</h5>
             </div>
-            <div className="card-summary-text">{summary}</div> */}
+            <div className="card-summary-text">{summary}</div> 
             <div className="card-actors">
               <span>Actor A</span>
               <span>Actor B</span>
-            </div>
+            </div> */}
           </div>
 
           <div className="card-action-group">

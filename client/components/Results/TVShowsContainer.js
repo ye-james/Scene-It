@@ -6,7 +6,6 @@ const TVShowsContainer = ({ searchResult, searchString }) => {
   let scrl = useRef(null);
   const [scrollX, setscrollX] = useState(0);
   const [scrolEnd, setscrolEnd] = useState(false);
-
   const slide = (shift) => {
     scrl.current.scrollLeft += shift;
     setscrollX(scrollX + shift);
@@ -51,13 +50,9 @@ const TVShowsContainer = ({ searchResult, searchString }) => {
         >
           {searchResult
             .filter((show) => show.media_type === "tv")
-            .map((movie) => {
+            .map((tv) => {
               return (
-                <Card
-                  id={movie.id}
-                  title={movie.original_title}
-                  imgPath={movie.backdrop_path}
-                />
+                <Card id={tv.id} title={tv.name} imgPath={tv.backdrop_path} />
               );
             })}
         </div>

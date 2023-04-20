@@ -1,18 +1,26 @@
+import { get } from "mongoose";
 import React, { useState, createContext, useEffect } from "react";
 
 const StateContext = createContext(null);
 
 const StateProvider = ({ children }) => {
+  const [fetching, setFetching] = useState(true);
   const [list, setList] = useState([]);
   const [popTVShows, setPopTVShows] = useState([]);
   const [popMovies, setPopMovies] = useState([]);
   const [searchResult, setSearchResult] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:3000/list")
-      .then((response) => response.json())
-      .then((data) => {
-        setList(data);
+    const getList = fetch("http://localhost:3000/list");
+    const getMedia = fetch("http://localhost:3000");
+
+    Promise.all([getList, getMedia])
+      .then((results) => Promise.all(results.map((r) => r.json())))
+      .then((values) => {
+        setList(values[0]);
+        setPopMovies(values[1].movies);
+        setPopTVShows(values[1].tvShows);
+        setFetching(false);
       });
   }, []);
 
@@ -27,6 +35,8 @@ const StateProvider = ({ children }) => {
         setPopMovies,
         searchResult,
         setSearchResult,
+        fetching,
+        setFetching,
       }}
     >
       {children}

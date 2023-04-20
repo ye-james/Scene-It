@@ -8,7 +8,6 @@ const ResultsContainer = () => {
   const { searchResult } = useContext(StateContext);
   const location = useLocation();
   const { searchString } = location.state;
-  console.log(searchResult);
   return (
     <div>
       ResultsContainer
