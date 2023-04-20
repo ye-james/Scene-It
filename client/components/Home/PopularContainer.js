@@ -9,43 +9,6 @@ const PopularContainer = () => {
   const [scrollX, setscrollX] = useState(0);
   const [scrolEnd, setscrolEnd] = useState(false);
 
-  useEffect(() => {
-    // fetch("http://localhost:3000/list")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setList(data);
-    //   });
-    // setFetching(true);
-    const getList = fetch("http://localhost:3000/list");
-    const getMovies = fetch("http://localhost:3000");
-    const getTVShows = fetch("http://localhost:3000/");
-
-    Promise.all([getList, getMovies, getTVShows])
-      .then((results) => Promise.all(results.map((r) => r.json())))
-      .then((values) => {
-        console.log(values);
-        // setList(values[0]);
-        // setPopMovies(values[1]);
-        // setPopTVShows(values[2]);
-        //setFetching(false);
-      });
-  }, []);
-
-  // useEffect(() => {
-  //   if (popTVShows.length === 0) {
-  //     fetch("http://localhost:3000/", {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     })
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         // setTVShows(data.tvShows);
-  //         setPopTVShows(data.tvShows);
-  //       });
-  //   }
-  // }, []);
-
   const slide = (shift) => {
     scrl.current.scrollLeft += shift;
     setscrollX(scrollX + shift);
@@ -110,9 +73,10 @@ const PopularContainer = () => {
       });
   };
 
+  console.log("list", list);
   return (
     <div className="home__popular">
-      <h1>Popular TV Shows</h1>
+      <h1 className="home__heading heading-primary">Popular TV Shows</h1>
       <div className="popular-container">
         {scrollX !== 0 && (
           <button className="scroll-prev" onClick={() => slide(-250)}>
@@ -126,6 +90,8 @@ const PopularContainer = () => {
         >
           {popTVShows.length > 0 &&
             popTVShows.map((show, key) => {
+              const index = list.findIndex((item) => item.id === show.id);
+              // console.log(list[index]);
               return (
                 <Card
                   key={key}
@@ -136,6 +102,7 @@ const PopularContainer = () => {
                   media_type={show.media_type}
                   setFavorite={setFavorite}
                   favorite={show.favorite}
+                  to_watch={list[index] ? list[index].to_watch : false}
                 />
               );
             })}

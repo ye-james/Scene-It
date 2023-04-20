@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { StateContext } from "../../context/StateContext";
 
 const HeroContainer = () => {
-  const { popMovies, setPopMovies } = useContext(StateContext);
+  const { popMovies, setPopMovies, list } = useContext(StateContext);
   const location = useLocation();
 
   useEffect(() => {
@@ -37,6 +37,8 @@ const HeroContainer = () => {
       >
         {popMovies.length > 0 &&
           popMovies.map((movie, key) => {
+            const index = list.findIndex((m) => m.id === movie.id);
+            const movieValues = list[index];
             return (
               <div className="hero__item" key={key}>
                 <img
@@ -49,6 +51,8 @@ const HeroContainer = () => {
                     id: movie.id,
                     title: movie.title,
                     media_type: movie.media_type,
+                    favorite: movieValues ? movieValues.favorite : false,
+                    to_watch: movieValues ? movieValues.to_watch : false,
                   }}
                 >
                   <p className="legend">{movie.title}</p>

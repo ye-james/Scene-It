@@ -9,8 +9,7 @@ const ResultsContainer = () => {
   const location = useLocation();
   const { searchString } = location.state;
   return (
-    <div>
-      ResultsContainer
+    <div className="results-container">
       <MoviesContainer
         searchResult={searchResult}
         searchString={searchString}

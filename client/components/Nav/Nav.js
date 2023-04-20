@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Navdata } from "./Navdata";
 import { AiOutlineCaretLeft, AiOutlineCaretRight } from "react-icons/ai";
+import Logo from "../../imgs/camera.svg";
 
 const Nav = () => {
   const [open, setOpen] = useState(false);
@@ -13,7 +14,11 @@ const Nav = () => {
   return (
     <div className="nav-container">
       <nav className={open ? "nav navOpen" : "nav navClosed"}>
-        <div className="nav__logo-container">LOGO</div>
+        <div className="nav__logo-container">
+          <Link to={"/"}>
+            <img className="logo" src={Logo}></img>
+          </Link>
+        </div>
         <button className="menuBtn" onClick={toggleOpen}>
           {open ? (
             <AiOutlineCaretLeft size={30} style={iconStyles} />

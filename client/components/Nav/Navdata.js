@@ -12,9 +12,9 @@ export const Navdata = [
     icon: <AiOutlineOrderedList size={20} />,
     link: "/my-list",
   },
-  {
-    title: "Explore",
-    //icon:'
-    link: "/explore",
-  },
+  // {
+  //   title: "Explore",
+  //   //icon:'
+  //   link: "/explore",
+  // },
 ];

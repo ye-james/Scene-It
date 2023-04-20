@@ -7,16 +7,16 @@ import NoImg from "../../imgs/No_Image.jpg";
 const Modal = () => {
   const location = useLocation();
   const { list, setList } = useContext(StateContext);
-  console.log(location);
-  const { id, favorite, media_type, title } = location.state;
+  const { id, favorite, media_type, title, to_watch } = location.state;
   const navigate = useNavigate();
   const [show, setShow] = useState(null);
+  console.log(location.state);
 
   useEffect(() => {
     fetch(`http://localhost:3000/search/${id}?media=${media_type}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("show", data);
+        // console.log("show", data);
         setShow(data);
       });
   }, []);
@@ -41,6 +41,16 @@ const Modal = () => {
         //update local state
         const updateShowObj = { ...show, favorite: data.setFavorite };
         setShow(updateShowObj);
+
+        //update list
+        const listIndex = list.findIndex((show) => show.id === data.id);
+        const updatedListShow = {
+          ...list[listIndex],
+          favorite: data.setFavorite,
+        };
+        const newList = [...list];
+        newList[listIndex] = updatedListShow;
+        setList(newList);
       });
   };
 
@@ -56,7 +66,11 @@ const Modal = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("response from servfer", data);
+        //update local state
+        const updateShowObj = { ...show, to_watch: data.to_watch };
+        setShow(updateShowObj);
+
+        //update watchlist
         const listIndex = list.findIndex((show) => show.id === data.id);
         const updatedListShow = {
           ...list[listIndex],
@@ -157,12 +171,13 @@ const Modal = () => {
                   <p>{show.overview}</p>
 
                   <div className="modal-tv-genre">
-                    {show.genres.map((genre, key) => (
-                      <span className="modal-genre" key={key}>
-                        {genre.name}
-                        <span>|</span>
-                      </span>
-                    ))}
+                    {show.genres &&
+                      show.genres.map((genre, key) => (
+                        <span className="modal-genre" key={key}>
+                          {genre.name}
+                          <span>|</span>
+                        </span>
+                      ))}
                   </div>
                 </div>
                 {/* <hr /> */}
@@ -171,7 +186,7 @@ const Modal = () => {
                     disabled={favorite}
                     onClick={() => setFavorite(id, title, media_type)}
                   >
-                    {favorite ? (
+                    {favorite || show.favorite ? (
                       <span className="modal-btn">
                         <AiOutlineCheckCircle size={20} /> Favorited
                       </span>
@@ -181,14 +196,16 @@ const Modal = () => {
                   </button>
                   <button
                     className="btn-secondary"
+                    disabled={to_watch}
                     onClick={() => addToWatchList(id, title, media_type, "add")}
                   >
-                    {
+                    {to_watch || show.to_watch ? (
                       <span className="modal-btn">
-                        {/* <AiOutlineCheckCircle size={20} />  */}
-                        Add To Watchlist
+                        <AiOutlineCheckCircle size={20} /> In Watchlist
                       </span>
-                    }
+                    ) : (
+                      "Add to Watchlist"
+                    )}
                   </button>
                 </div>
               </div>

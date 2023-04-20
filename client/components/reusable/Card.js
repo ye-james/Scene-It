@@ -11,10 +11,10 @@ const Card = ({
   favorite,
   setFavorite,
   media_type,
+  to_watch,
 }) => {
   const [cardHovered, setCardHovered] = useState(false);
   const location = useLocation();
-
   return (
     <div
       className="card"
@@ -70,6 +70,7 @@ const Card = ({
                 title: title,
                 favorite: favorite,
                 media_type: media_type,
+                to_watch: to_watch,
               }}
               className="list-link"
             >

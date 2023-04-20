@@ -33,7 +33,7 @@ const App = () => {
             path="/my-list/:id"
             element={<Modal />}
           />
-          <Route path="/explore" element={<h1>Explore</h1>} />
+          {/* <Route path="/explore" element={<h1>Explore</h1>} /> */}
           <Route path="/results" element={<ResultsContainer />} />
         </Routes>
         {/* {background && (

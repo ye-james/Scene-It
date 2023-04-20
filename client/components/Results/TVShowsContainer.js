@@ -3,6 +3,7 @@ import Card from "../reusable/Card";
 import { AiOutlineCaretLeft, AiOutlineCaretRight } from "react-icons/ai";
 
 const TVShowsContainer = ({ searchResult, searchString }) => {
+  console.log("TV Shows Container:", searchResult);
   let scrl = useRef(null);
   const [scrollX, setscrollX] = useState(0);
   const [scrolEnd, setscrolEnd] = useState(false);
@@ -52,7 +53,12 @@ const TVShowsContainer = ({ searchResult, searchString }) => {
             .filter((show) => show.media_type === "tv")
             .map((tv) => {
               return (
-                <Card id={tv.id} title={tv.name} imgPath={tv.backdrop_path} />
+                <Card
+                  id={tv.id}
+                  title={tv.name}
+                  imgPath={tv.backdrop_path}
+                  media_type={tv.media_type}
+                />
               );
             })}
         </div>
