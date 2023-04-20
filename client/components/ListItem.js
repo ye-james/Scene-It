@@ -8,8 +8,21 @@ const ListItem = ({
   img_path,
   favorite,
   media_type,
+  container,
+  addToWatchedList,
+  deleteFromWatchedList,
+  deleteFromWatchList,
 }) => {
   const location = useLocation();
+  const determineButton = () => {
+    if (container === "favorite") {
+      setFavorite(id, title, media_type);
+    } else if (container === "watchlist") {
+      deleteFromWatchList(id);
+    } else {
+      deleteFromWatchedList(id);
+    }
+  };
   return (
     <div className="list-card">
       <div className="wrapper">
@@ -22,6 +35,7 @@ const ListItem = ({
           state={{
             background: location,
             id: id,
+            title: title,
             favorite: favorite,
             media_type: media_type,
           }}
@@ -32,8 +46,12 @@ const ListItem = ({
         <Outlet />
       </div>
       <div className="wrapper">
+        {container === "watchlist" ? (
+          <button onClick={() => addToWatchedList(id)}>Move to Watched</button>
+        ) : null}
         {/* <p>Date added: 4/17/2023</p> */}
-        <button onClick={() => setFavorite(id, title, media_type)}>
+        <button onClick={() => determineButton()}>
+          {/* <button onClick={() => setFavorite(id, title, media_type)}> */}
           Remove
         </button>
       </div>

@@ -65,6 +65,7 @@ const Card = ({
               state={{
                 background: location,
                 id: id,
+                title: title,
                 favorite: favorite,
                 media_type: media_type,
               }}

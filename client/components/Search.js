@@ -1,38 +1,42 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { StateContext } from "../context/StateContext";
 
 const Search = () => {
-  const inputRef = useRef(null);
   const [inputValue, setInputValue] = useState("");
+  const { setSearchResult } = useContext(StateContext);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
+  const onEnterPress = (e) => {
+    if (e.keyCode === 13) {
       const data = {
         queryString: inputValue,
       };
-      if (inputRef.current.value === inputValue && inputValue !== "") {
-        fetch("http://localhost:3000/search", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            //"Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: JSON.stringify(data),
+      fetch("http://localhost:3000/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          //"Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setSearchResult(data.results);
+          navigate("/results", { state: { searchString: inputValue } });
         });
-      }
-    }, 500);
+    }
+  };
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [inputValue, inputRef]);
   return (
     <div className="search-container">
       <input
-        ref={inputRef}
         className="search-bar"
         placeholder="Search..."
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={(e) => onEnterPress(e)}
       />
     </div>
   );

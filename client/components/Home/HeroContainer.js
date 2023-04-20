@@ -45,6 +45,7 @@ const HeroContainer = () => {
                 state={{
                   background: location,
                   id: movie.id,
+                  title: movie.title,
                   media_type: movie.media_type,
                 }}
               >

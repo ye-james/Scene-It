@@ -3,14 +3,13 @@ import { StateContext } from "../context/StateContext";
 import ListItem from "./ListItem";
 const ListContainer = () => {
   const { list, setList } = useContext(StateContext);
-  // const [myList, setMyList] = useState([]);
-  // useEffect(() => {
-  //   fetch("http://localhost:3000/list")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setMyList(data);
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetch("http://localhost:3000/list")
+      .then((response) => response.json())
+      .then((data) => {
+        setList(data);
+      });
+  }, []);
   // console.log("context list", list);
   const setFavorite = (id, title, media_type) => {
     const data = {
@@ -28,7 +27,7 @@ const ListContainer = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         const showIndex = list.findIndex((show) => show.id === data.id);
         const updatedShow = {
           ...list[showIndex],
@@ -39,6 +38,103 @@ const ListContainer = () => {
         setList(newList);
       });
   };
+
+  const addToWatchList = (id) => {
+    console.log("calling to delete");
+    const data = { id };
+    fetch("http://localhost:3000/list/watchlist/delete", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("response from delete from", data);
+        const listIndex = list.findIndex((show) => show.id === data.id);
+        const updatedListShow = {
+          ...list[listIndex],
+          to_watch: data.to_watch,
+        };
+        const newList = [...list];
+        newList[listIndex] = updatedListShow;
+        setList(newList);
+      });
+  };
+  const deleteFromWatchList = (id) => {
+    console.log("calling to delete from watch list");
+    const data = { id };
+    fetch("http://localhost:3000/list/watchlist/delete", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("response from delete from", data);
+        const listIndex = list.findIndex((show) => show.id === data.id);
+        const updatedListShow = {
+          ...list[listIndex],
+          to_watch: data.to_watch,
+        };
+        const newList = [...list];
+        newList[listIndex] = updatedListShow;
+        setList(newList);
+      });
+  };
+
+  const deleteFromWatchedList = (id) => {
+    console.log("calling to delete from watched");
+    const data = { id };
+    fetch("http://localhost:3000/list/watched/delete", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("response from delete from", data);
+        const listIndex = list.findIndex((show) => show.id === data.id);
+        const updatedListShow = {
+          ...list[listIndex],
+          watched: data.watched,
+        };
+        const newList = [...list];
+        newList[listIndex] = updatedListShow;
+        setList(newList);
+      });
+  };
+
+  const addToWatchedList = (id) => {
+    console.log("calling to add to watched");
+    const data = { id };
+    fetch("http://localhost:3000/list/watched/add", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("response from delete from", data);
+        const listIndex = list.findIndex((show) => show.id === data.id);
+        const updatedListShow = {
+          ...list[listIndex],
+          to_watch: false,
+          watched: data.watched,
+        };
+        const newList = [...list];
+        newList[listIndex] = updatedListShow;
+        setList(newList);
+      });
+  };
+
   return (
     <div className="list-container">
       <h1>Favorites</h1>
@@ -58,6 +154,7 @@ const ListContainer = () => {
                   title={item.name}
                   img_path={item.img_path}
                   media_type={item.media_type}
+                  container="favorite"
                 />
               );
             })
@@ -68,7 +165,7 @@ const ListContainer = () => {
       <h1>Watch List</h1>
       <hr className="list-break" />
       <div className="watchlist-container">
-        {list.length > 0 ? (
+        {list.filter((show) => show.to_watch).length > 0 ? (
           list
             .filter((show) => show.to_watch)
             .map((item, key) => {
@@ -78,14 +175,45 @@ const ListContainer = () => {
                   key={key}
                   id={item.id}
                   favorite={item.favorite}
+                  deleteFromWatchList={deleteFromWatchList}
                   title={item.name}
                   img_path={item.img_path}
                   media_type={item.media_type}
+                  container="watchlist"
+                  addToWatchedList={addToWatchedList}
                 />
               );
             })
         ) : (
-          <h2>awkward.... nothing in favorites, go add some!</h2>
+          <h2>awkward.... nothing in watch list, go add some!</h2>
+        )}
+      </div>
+      <h1>Watched</h1>
+      <hr className="list-break" />
+      <div className="watched-container">
+        {list.filter((show) => show.watched).length > 0 ? (
+          list
+            .filter((show) => show.watched)
+            .map((item, key) => {
+              console.log(item);
+              return (
+                <ListItem
+                  key={key}
+                  id={item.id}
+                  favorite={item.favorite}
+                  deleteFromWatchedList={deleteFromWatchedList}
+                  title={item.name}
+                  img_path={item.img_path}
+                  media_type={item.media_type}
+                  container="watched"
+                />
+              );
+            })
+        ) : (
+          <h2>
+            awkward.... nothing in the watched list, go add some or watch
+            something!
+          </h2>
         )}
       </div>
     </div>

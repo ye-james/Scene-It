@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AiOutlineCheckCircle } from "react-icons/ai";
+import { StateContext } from "../../context/StateContext";
 
 const Modal = () => {
   const location = useLocation();
+  const { list, setList } = useContext(StateContext);
   console.log(location);
-  const { id, favorite, media_type } = location.state;
+  const { id, favorite, media_type, title } = location.state;
   const navigate = useNavigate();
   const [show, setShow] = useState(null);
 
@@ -13,11 +15,10 @@ const Modal = () => {
     fetch(`http://localhost:3000/search/${id}?media=${media_type}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log("show", data);
         setShow(data);
       });
   }, []);
-
   const setFavorite = (id, title, media_type) => {
     const data = {
       id,
@@ -25,6 +26,7 @@ const Modal = () => {
       media_type,
     };
 
+    console.log("setFavorite data", data);
     fetch("http://localhost:3000/list/favorite", {
       method: "PATCH",
       headers: {
@@ -34,21 +36,17 @@ const Modal = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        const showIndex = show.findIndex((show) => show.id === data.id);
-        const updatedShow = {
-          ...show[showIndex],
-          favorite: data.setFavorite,
-        };
-        const newShowList = [...show];
-        newShowList[showIndex] = updatedShow;
-        setTVShows(newShowList);
+        console.log(data);
+        //update local state
+        const updateShowObj = { ...show, favorite: data.setFavorite };
+        setShow(updateShowObj);
       });
   };
 
-  const addToWatchList = (id) => {
-    const data = { id };
-
-    fetch("http://localhost:3000/list/add", {
+  const addToWatchList = (id, title, media_type, action) => {
+    const data = { id, title, media_type, action };
+    console.log("being called", id);
+    fetch("http://localhost:3000/list/watchlist/add", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +55,15 @@ const Modal = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log("response from servfer", data);
+        const listIndex = list.findIndex((show) => show.id === data.id);
+        const updatedListShow = {
+          ...list[listIndex],
+          to_watch: data.to_watch,
+        };
+        const newList = [...list];
+        newList[listIndex] = updatedListShow;
+        setList(newList);
       });
   };
 
@@ -101,9 +107,9 @@ const Modal = () => {
                 <div className="modal-btns">
                   <button
                     disabled={favorite}
-                    onClick={() => setFavorite(id, show.title, media_type)}
+                    onClick={() => setFavorite(id, title, media_type)}
                   >
-                    {favorite ? (
+                    {show.favorite ? (
                       <span className="modal-btn">
                         <AiOutlineCheckCircle size={20} /> Favorite
                       </span>
@@ -113,7 +119,7 @@ const Modal = () => {
                   </button>
                   <button
                     className="btn-secondary"
-                    onClick={() => addToWatchList(id)}
+                    onClick={() => addToWatchList(id, title, media_type, "add")}
                   >
                     {
                       <span className="modal-btn">

@@ -6,6 +6,7 @@ const StateProvider = ({ children }) => {
   const [list, setList] = useState([]);
   const [popTVShows, setPopTVShows] = useState([]);
   const [popMovies, setPopMovies] = useState([]);
+  const [searchResult, setSearchResult] = useState({});
 
   useEffect(() => {
     fetch("http://localhost:3000/list")
@@ -24,6 +25,8 @@ const StateProvider = ({ children }) => {
         setPopTVShows,
         popMovies,
         setPopMovies,
+        searchResult,
+        setSearchResult,
       }}
     >
       {children}

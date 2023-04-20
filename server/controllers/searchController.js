@@ -23,7 +23,7 @@ searchController.findList = (req, res, next) => {
   res.locals.allShows.forEach((show) => {
     promises.push(
       fetch(
-        `https://api.themoviedb.org/3/tv/${show.id}?api_key=${process.env.API_KEY}`
+        `https://api.themoviedb.org/3/${show.media_type}/${show.id}?api_key=${process.env.API_KEY}`
       )
     );
   });
@@ -43,7 +43,7 @@ searchController.findList = (req, res, next) => {
           watched,
           to_watch,
           media_type,
-          name: show.name,
+          name: show.name || show.original_title,
           img_path: show.backdrop_path,
         };
 

@@ -4,6 +4,7 @@ import Nav from "../components/Nav/Nav";
 import Search from "../components/Search";
 import Home from "../components/Home/Home";
 import ListContainer from "../components/ListContainer";
+import ResultsContainer from "../components/Results/ResultsContainer";
 import Modal from "../components/reusable/Modal";
 
 const App = () => {
@@ -21,6 +22,11 @@ const App = () => {
             location={background || location}
             element={<Modal />}
           />
+          <Route
+            path="/results/:id"
+            location={background || location}
+            element={<Modal />}
+          />
           <Route path="/my-list" element={<ListContainer />} />
           <Route
             location={background || location}
@@ -28,6 +34,7 @@ const App = () => {
             element={<Modal />}
           />
           <Route path="/explore" element={<h1>Explore</h1>} />
+          <Route path="/results" element={<ResultsContainer />} />
         </Routes>
         {/* {background && (
           <Routes>

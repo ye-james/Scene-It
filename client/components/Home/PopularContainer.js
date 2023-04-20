@@ -75,7 +75,7 @@ const PopularContainer = () => {
         newTvShowsList[showIndex] = updatedShow;
         setPopTVShows(newTvShowsList);
 
-        //
+        //update list to reflect favorite changes
         console.log(data);
         const listIndex = list.findIndex((show) => show.id === data.id);
         const updatedListShow = {
