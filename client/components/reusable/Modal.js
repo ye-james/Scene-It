@@ -171,7 +171,7 @@ const Modal = () => {
                     </div>
                   )}
 
-                  <p>{show.overview}</p>
+                  <p className="show-description">{show.overview}</p>
 
                   <div className="modal-tv-genre">
                     {show.genres &&
@@ -186,7 +186,7 @@ const Modal = () => {
                 {/* <hr /> */}
 
                 <div>
-                  <h1>Trailer</h1>
+                  <h1 className="modal-heading">Trailer</h1>
 
                   <div className="trailer-container">
                     {trailerObj.length > 0 ? (

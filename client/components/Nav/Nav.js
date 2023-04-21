@@ -18,7 +18,11 @@ const Nav = () => {
           <Link to={"/"}>
             <img className="logo" src={Logo}></img>
           </Link>
+          <span className={open ? "title titleOpen" : "title titleClosed"}>
+            <p>Scene It</p>
+          </span>
         </div>
+
         <button className="menuBtn" onClick={toggleOpen}>
           {open ? (
             <AiOutlineCaretLeft size={30} style={iconStyles} />
