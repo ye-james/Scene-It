@@ -3,7 +3,6 @@ import Card from "../reusable/Card";
 import { AiOutlineCaretLeft, AiOutlineCaretRight } from "react-icons/ai";
 
 const TVShowsContainer = ({ searchResult, searchString }) => {
-  console.log("TV Shows Container:", searchResult);
   let scrl = useRef(null);
   const [scrollX, setscrollX] = useState(0);
   const [scrolEnd, setscrolEnd] = useState(false);

@@ -10,13 +10,19 @@ const Modal = () => {
   const { id, favorite, media_type, title, to_watch } = location.state;
   const navigate = useNavigate();
   const [show, setShow] = useState(null);
-  console.log(location.state);
+  const trailerObj = show
+    ? show.videos.results.filter((res) =>
+        res.name.toLowerCase().includes("trailer")
+      )
+    : null;
+
+  console.log(trailerObj);
 
   useEffect(() => {
     fetch(`http://localhost:3000/search/${id}?media=${media_type}`)
       .then((response) => response.json())
       .then((data) => {
-        // console.log("show", data);
+        console.log("retrieved data", data);
         setShow(data);
       });
   }, []);
@@ -27,7 +33,6 @@ const Modal = () => {
       media_type,
     };
 
-    console.log("setFavorite data", data);
     fetch("http://localhost:3000/list/favorite", {
       method: "PATCH",
       headers: {
@@ -37,7 +42,6 @@ const Modal = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         //update local state
         const updateShowObj = { ...show, favorite: data.setFavorite };
         setShow(updateShowObj);
@@ -56,7 +60,6 @@ const Modal = () => {
 
   const addToWatchList = (id, title, media_type, action) => {
     const data = { id, title, media_type, action };
-    console.log("being called", id);
     fetch("http://localhost:3000/list/watchlist/add", {
       method: "PATCH",
       headers: {
@@ -181,6 +184,22 @@ const Modal = () => {
                   </div>
                 </div>
                 {/* <hr /> */}
+
+                <div>
+                  <h1>Trailer</h1>
+
+                  <div className="trailer-container">
+                    {trailerObj.length > 0 ? (
+                      <iframe
+                        className="responsive-iframe"
+                        allow="fullscreen"
+                        src={`https://www.youtube.com/embed/${trailerObj[0].key}`}
+                      />
+                    ) : (
+                      <h2>No Trailer Available...</h2>
+                    )}
+                  </div>
+                </div>
                 <div className="modal-btns">
                   <button
                     disabled={favorite}
@@ -196,7 +215,7 @@ const Modal = () => {
                   </button>
                   <button
                     className="btn-secondary"
-                    disabled={to_watch}
+                    disabled={to_watch || show.to_watch}
                     onClick={() => addToWatchList(id, title, media_type, "add")}
                   >
                     {to_watch || show.to_watch ? (

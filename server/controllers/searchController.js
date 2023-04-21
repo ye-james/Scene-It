@@ -61,7 +61,7 @@ searchController.getMediaInfo = (req, res, next) => {
   const { media } = req.query;
 
   fetch(
-    `https://api.themoviedb.org/3/${media}/${id}?api_key=${process.env.API_KEY}`
+    `https://api.themoviedb.org/3/${media}/${id}?api_key=${process.env.API_KEY}&append_to_response=videos`
   )
     .then((response) => response.json())
     .then((data) => {

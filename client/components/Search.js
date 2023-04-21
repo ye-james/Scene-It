@@ -16,13 +16,11 @@ const Search = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          //"Content-Type": "application/x-www-form-urlencoded",
         },
         body: JSON.stringify(data),
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           setSearchResult(data.results);
           navigate("/results", { state: { searchString: inputValue } });
         });

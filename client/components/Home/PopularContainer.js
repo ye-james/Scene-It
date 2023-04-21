@@ -61,7 +61,6 @@ const PopularContainer = () => {
         setPopTVShows(newTvShowsList);
 
         //update list to reflect favorite changes
-        console.log(data);
         const listIndex = list.findIndex((show) => show.id === data.id);
         const updatedListShow = {
           ...list[listIndex],
@@ -73,7 +72,7 @@ const PopularContainer = () => {
       });
   };
 
-  console.log("list", list);
+
   return (
     <div className="home__popular">
       <h1 className="home__heading heading-primary">Popular TV Shows</h1>
@@ -91,7 +90,6 @@ const PopularContainer = () => {
           {popTVShows.length > 0 &&
             popTVShows.map((show, key) => {
               const index = list.findIndex((item) => item.id === show.id);
-              // console.log(list[index]);
               return (
                 <Card
                   key={key}
