@@ -12,7 +12,7 @@ const Search = () => {
       const data = {
         queryString: inputValue,
       };
-      fetch("hhttps://scene-it-server.vercel.app/search", {
+      fetch("https://scene-it-server.vercel.app/search", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
