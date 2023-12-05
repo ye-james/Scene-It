@@ -8,7 +8,8 @@
     "start-server": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"NODE_ENV=development webpack serve\" \"nodemon server/server.js\"",
-    "build": "webpack --env production --mode production"
+    "build": "webpack --env production --mode production",
+    "vercel-build": "echo hello"
   },
   "keywords": [],
   "author": "",
