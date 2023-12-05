@@ -19,7 +19,7 @@ const Modal = () => {
   console.log(trailerObj);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/search/${id}?media=${media_type}`)
+    fetch(`https://scene-it-server.vercel.app/search/${id}?media=${media_type}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("retrieved data", data);
@@ -33,7 +33,7 @@ const Modal = () => {
       media_type,
     };
 
-    fetch("http://localhost:3000/list/favorite", {
+    fetch("https://scene-it-server.vercel.app/list/favorite", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ const Modal = () => {
 
   const addToWatchList = (id, title, media_type, action) => {
     const data = { id, title, media_type, action };
-    fetch("http://localhost:3000/list/watchlist/add", {
+    fetch("https://scene-it-server.vercel.app/list/watchlist/add", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

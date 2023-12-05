@@ -35,7 +35,7 @@ const ListContainer = () => {
   const addToWatchList = (id) => {
 
     const data = { id };
-    fetch("https://scene-it-server.vercel.app//list/watchlist/delete", {
+    fetch("https://scene-it-server.vercel.app/list/watchlist/delete", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

@@ -43,7 +43,7 @@ const PopularContainer = () => {
     };
 
     //fetch("http://localhost:3000/list/favorite", {
-    fetch("https://scene-it-server.vercel.app/", {
+    fetch("https://scene-it-server.vercel.app/list/favorite", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
