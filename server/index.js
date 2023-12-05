@@ -3,10 +3,10 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 const bodyParser = require("body-parser");
-const cors = require("cors");
+//const cors = require("cors");
 
 require("dotenv").config();
-app.use(cors());
+///app.use(cors());
 //Import Routes
 const homeRoute = require("./routes/home");
 const moviesRoute = require("./routes/movies");
