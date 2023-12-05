@@ -11,7 +11,7 @@ const ListContainer = () => {
       media_type,
     };
 
-    fetch("http://localhost:3000/list/favorite", {
+    fetch("https://scene-it-server.vercel.app/list/favorite", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const ListContainer = () => {
   const addToWatchList = (id) => {
 
     const data = { id };
-    fetch("http://localhost:3000/list/watchlist/delete", {
+    fetch("https://scene-it-server.vercel.app//list/watchlist/delete", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +59,7 @@ const ListContainer = () => {
   const deleteFromWatchList = (id) => {
 
     const data = { id };
-    fetch("http://localhost:3000/list/watchlist/delete", {
+    fetch("https://scene-it-server.vercel.app/list/watchlist/delete", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +83,7 @@ const ListContainer = () => {
   const deleteFromWatchedList = (id) => {
 
     const data = { id };
-    fetch("http://localhost:3000/list/watched/delete", {
+    fetch("https://scene-it-server.vercel.app/list/watched/delete", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -107,7 +107,7 @@ const ListContainer = () => {
   const addToWatchedList = (id) => {
 
     const data = { id };
-    fetch("http://localhost:3000/list/watched/add", {
+    fetch("https://scene-it-server.vercel.app/list/watched/add", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
