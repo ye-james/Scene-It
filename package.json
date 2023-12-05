@@ -7,7 +7,7 @@
     "start": "nodemon server/index.js",
     "start-server": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"NODE_ENV=development webpack serve\" \"nodemon server/server.js\"",
+    "dev": "concurrently \"NODE_ENV=development webpack serve\" \"nodemon server/index.js\"",
     "build": "webpack --env production --mode production",
     "vercel-build": "echo hello"
   },

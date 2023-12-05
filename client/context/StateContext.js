@@ -11,8 +11,11 @@ const StateProvider = ({ children }) => {
   const [searchResult, setSearchResult] = useState({});
 
   useEffect(() => {
-    const getList = fetch("http://localhost:3000/list");
-    const getMedia = fetch("http://localhost:3000");
+    //Use in local development
+    // const getList = fetch("http://localhost:3000/list");
+    // const getMedia = fetch("http://localhost:3000");
+    const getList = fetch("https://scene-it-server.vercel.app/list");
+    const getMedia = fetch("https://scene-it-server.vercel.app/");
 
     Promise.all([getList, getMedia])
       .then((results) => Promise.all(results.map((r) => r.json())))

@@ -42,7 +42,8 @@ const PopularContainer = () => {
       media_type,
     };
 
-    fetch("http://localhost:3000/list/favorite", {
+    //fetch("http://localhost:3000/list/favorite", {
+    fetch("https://scene-it-server.vercel.app/", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
